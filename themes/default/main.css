@@ -1,0 +1,14 @@
+body {
+  font-family: Arial, Sans-Serif;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+}
+
+nav a {
+  padding: 5px;
+}
