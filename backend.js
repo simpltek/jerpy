@@ -1,13 +1,14 @@
 const EditPage = {
   data: ()=>({
     page: null,
-    content: null
+    content: null,
+    alert: null
   }),
   template: `<div v-if="page">
-    <h3>Edit Page</h3>
+    <h3>Edit {{ page.title }}</h3>
     <form @submit.prevent="savePage" class="h-100 my-3 d-flex flex-column">
       <div>
-        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button>
+        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button><span v-if="alert" class="alert alert-success">{{ alert }}</span>
         <button class="btn btn-secondary mb-3" type="button" @click="closePage">Close</button>
       </div>
       <div class="flex-grow-1 d-flex flex-column">
@@ -27,7 +28,7 @@ const EditPage = {
         </fieldset>
       </div>
     </form>
-    <button v-if="page.path.match(/[^404 ]/)" class="btn btn-danger" @click="deletePage">Delete</button>
+    <button v-if="page.path.match(/[^404 ]/)" class="btn btn-danger" @click="deletePage">Delete Page</button>
   </div>`,
   methods: {
     loadContent() {
@@ -47,7 +48,8 @@ const EditPage = {
       }
       this.$ajax('?save-page', 'POST', {name:this.page.file,data:this.content})
       .then(d=>{
-        console.log(d.msg)
+        this.alert = d.msg
+        setTimeout(()=>{this.alert=null},5000)
         this.$root.$emit('save-meta')
       })
     },
@@ -82,13 +84,14 @@ const EditPage = {
 const EditFile = {
   data: ()=>({
     file: null,
-    content: null
+    content: null,
+    alert: null
   }),
   template: `<div v-if="file">
     <h3>Edit {{ file.name }}</h3>
     <form @submit.prevent="saveFile" class="h-100 my-3 d-flex flex-column">
       <div>
-        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button>
+        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button><span v-if="alert" class="alert alert-success">{{ alert }}</span>
         <button class="btn btn-secondary mb-3" type="button" @click="closeFile">Close</button>
       </div>
       <fieldset class="flex-grow-1 d-flex flex-column mb-3">
@@ -107,7 +110,8 @@ const EditFile = {
     saveFile() {
       this.$ajax('?save-file', 'POST', {name:this.file.path,data:this.content})
       .then(d=>{
-        console.log(d.msg)
+        this.alert = d.msg
+        setTimeout(()=>{this.alert=null},5000)
       })
     },
     closeFile() {
@@ -141,16 +145,16 @@ const App = {
     sel: null
   }),
   template: `<div class="container">
-    <div class="d-flex align-items-center">
+    <div class="mt-3 d-flex align-items-center">
       <h1>Jerpy</h1>
       <span class="flex-grow-1"></span>
-      <a class="link me-2" href="./" target="_blank">View Site</a>
+      <a class="btn btn-primary me-2" href="./" target="_blank">View Site</a>
       <button class="btn btn-secondary" @click="logout">Logout</button>
     </div>
     <div class="my-3 d-flex gap-4">
       <div class="w-25">
         <h3>Pages</h3>
-        <button class="btn btn-success mb-3" @click="addPage">Add</button>
+        <button class="btn btn-success mb-3" @click="addPage">Add Page</button>
         <ul class="list-group">
           <li class="list-group-item"
             v-for="(p,i) in pages"
