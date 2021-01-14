@@ -5,10 +5,10 @@ const EditPage = {
     alert: null
   }),
   template: `<div v-if="page">
-    <h3>Edit {{ page.title }}</h3>
+    <h3>Edit {{ page.title }} <span v-show="alert" class="badge bg-success fs-5 align-top">{{ alert }}</span></h3>
     <form @submit.prevent="savePage" class="h-100 my-3 d-flex flex-column">
       <div>
-        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button><span v-if="alert" class="alert alert-success">{{ alert }}</span>
+        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button>
         <button class="btn btn-secondary mb-3" type="button" @click="closePage">Close</button>
       </div>
       <div class="flex-grow-1 d-flex flex-column">
@@ -88,10 +88,10 @@ const EditFile = {
     alert: null
   }),
   template: `<div v-if="file">
-    <h3>Edit {{ file.name }}</h3>
+    <h3>Edit {{ file.name }} <span v-show="alert" class="badge bg-success fs-5 align-top">{{ alert }}</span></h3>
     <form @submit.prevent="saveFile" class="h-100 my-3 d-flex flex-column">
       <div>
-        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button><span v-if="alert" class="alert alert-success">{{ alert }}</span>
+        <button class="btn btn-primary mb-3 me-2" type="submit">Save</button>
         <button class="btn btn-secondary mb-3" type="button" @click="closeFile">Close</button>
       </div>
       <fieldset class="flex-grow-1 d-flex flex-column mb-3">
