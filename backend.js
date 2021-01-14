@@ -88,7 +88,7 @@ const EditFile = {
     alert: null
   }),
   template: `<div v-if="file">
-    <h3>Edit {{ file.name }} <span v-show="alert" class="badge bg-success fs-5 align-top">{{ alert }}</span></h3>
+    <h3>Edit {{ file.name }} <span v-show="alert" class="badge bg-success fs-6 mt-1 align-top">{{ alert }}</span></h3>
     <form @submit.prevent="saveFile" class="h-100 my-3 d-flex flex-column">
       <div>
         <button class="btn btn-primary mb-3 me-2" type="submit">Save</button>
